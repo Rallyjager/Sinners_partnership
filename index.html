@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEDICI x SINNERS — Partnership Proposal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0B0B0F;
+    --bg-card: #141419;
+    --bg-card-hover: #1A1A22;
+    --gold: #C8A960;
+    --gold-dim: rgba(200, 169, 96, 0.15);
+    --gold-glow: rgba(200, 169, 96, 0.06);
+    --white: #F0EDE6;
+    --white-dim: rgba(240, 237, 230, 0.55);
+    --red: #D93636;
+    --green: #3AAF5C;
+    --blue: #4A8ED9;
+    --font: 'Inter', 'DINPro', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 10vw;
+    position: relative;
+    border-bottom: 1px solid rgba(200,169,96,0.08);
+  }
+
+  .slide-number {
+    position: absolute;
+    top: 40px;
+    right: 10vw;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .vedici-mark {
+    position: absolute;
+    top: 40px;
+    left: 10vw;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  p, li {
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.65;
+    color: var(--white-dim);
+    max-width: 720px;
+  }
+
+  .subtitle {
+    font-size: clamp(18px, 1.8vw, 26px);
+    line-height: 1.5;
+    color: var(--white-dim);
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+
+  .gold { color: var(--gold); }
+  .red { color: var(--red); }
+  .green { color: var(--green); }
+  .blue { color: var(--blue); }
+  .bold { font-weight: 700; color: var(--white); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid rgba(200,169,96,0.1);
+    border-radius: 12px;
+    padding: 28px;
+  }
+
+  .card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .card p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--white-dim);
+  }
+
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(200,169,96,0.1);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .stat-card .number {
+    font-size: clamp(32px, 3vw, 48px);
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .stat-card .label {
+    font-size: 13px;
+    color: var(--white-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .timeline {
+    display: flex;
+    gap: 0;
+    margin-top: 40px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .timeline-item {
+    flex: 1;
+    padding: 28px 24px;
+    background: var(--bg-card);
+    border-right: 1px solid rgba(200,169,96,0.1);
+    position: relative;
+  }
+
+  .timeline-item:last-child { border-right: none; }
+
+  .timeline-item.active {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+  }
+
+  .timeline-item .q {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .timeline-item .amount {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .timeline-item .note {
+    font-size: 13px;
+    color: var(--white-dim);
+  }
+
+  .list-clean {
+    list-style: none;
+    margin-top: 12px;
+  }
+
+  .list-clean li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(200,169,96,0.06);
+    font-size: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .list-clean li:last-child { border-bottom: none; }
+
+  .list-clean .icon {
+    color: var(--gold);
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+
+  .tag-red { background: rgba(217,54,54,0.15); color: var(--red); }
+  .tag-green { background: rgba(58,175,92,0.15); color: var(--green); }
+  .tag-blue { background: rgba(74,142,217,0.15); color: var(--blue); }
+  .tag-gold { background: var(--gold-dim); color: var(--gold); }
+
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin: 24px 0;
+    opacity: 0.4;
+  }
+
+  .match-table {
+    margin-top: 24px;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .match-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid rgba(200,169,96,0.06);
+  }
+
+  .match-row.header {
+    border-bottom: 1px solid rgba(200,169,96,0.15);
+  }
+
+  .match-row .cell {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--white-dim);
+  }
+
+  .match-row.header .cell {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  .cta-box {
+    margin-top: 48px;
+    padding: 32px 40px;
+    background: var(--gold-dim);
+    border: 1px solid rgba(200,169,96,0.2);
+    border-radius: 12px;
+    max-width: 640px;
+  }
+
+  .cta-box p {
+    color: var(--white);
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .slide-title-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+  }
+
+  .slide-title-hero h1 {
+    font-size: clamp(48px, 7vw, 96px);
+  }
+
+  .pill-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .pill-on { background: rgba(217,54,54,0.12); color: var(--red); }
+  .pill-changer { background: rgba(58,175,92,0.12); color: var(--green); }
+  .pill-over { background: rgba(74,142,217,0.12); color: var(--blue); }
+
+  .format-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(200,169,96,0.1);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .format-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .format-card p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--white-dim);
+  }
+
+  .steps-list {
+    list-style: none;
+    counter-reset: steps;
+    margin-top: 32px;
+    max-width: 600px;
+  }
+
+  .steps-list li {
+    counter-increment: steps;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(200,169,96,0.06);
+    font-size: 17px;
+    color: var(--white-dim);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .steps-list li::before {
+    content: counter(steps);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .bg-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content-z { position: relative; z-index: 1; }
+
+  @media (max-width: 768px) {
+    .slide { padding: 48px 24px; }
+    .vedici-mark, .slide-number { display: none; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .timeline { flex-direction: column; }
+    .match-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media print {
+    .slide { page-break-after: always; min-height: auto; padding: 40px; }
+    body { background: #fff; color: #111; }
+    .card, .stat-card, .timeline-item, .format-card { border-color: #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE -->
+<section class="slide slide-title-hero">
+  <div class="bg-glow" style="background: var(--gold); top: 30%; left: 50%; transform: translateX(-50%);"></div>
+  <div class="content-z" style="text-align: center;">
+    <h3>Partnership Proposal 2026</h3>
+    <h1>VEDICI <span class="gold">&times;</span> SINNERS</h1>
+    <p class="subtitle" style="margin: 0 auto 32px;">Premium supplements for the strongest esports team in CZ/SK.</p>
+    <div class="pill-row" style="justify-content: center;">
+      <span class="pill pill-on">Game ON &mdash; Energy</span>
+      <span class="pill pill-changer">Game CHANGER &mdash; Immunity</span>
+      <span class="pill pill-over">Game OVER &mdash; Recovery</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: WHO IS VEDICI -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">02</span>
+  <div class="content-z">
+    <h3>About Us</h3>
+    <h2>A trilogy for demanding routines.</h2>
+    <p>VEDICI is a premium dietary supplement brand in the form of tasty lozenges. A three-product system covering the entire day &mdash; from focus to recovery.</p>
+    <div class="divider"></div>
+    <div class="grid-3">
+      <div class="card">
+        <span class="tag tag-red">Game ON</span>
+        <h4>Energy + Focus</h4>
+        <p>Caffeine, L-theanine, ginseng, rhodiola. Dissolve 20 min before performance.</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-green">Game CHANGER</span>
+        <h4>Immunity + Resilience</h4>
+        <p>Ashwagandha, turmeric, vitamins C + D3. Daily support for overall wellness.</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-blue">Game OVER</span>
+        <h4>Sleep + Recovery</h4>
+        <p>Hops, sweet woodruff, eyebright. Natural wind-down after a demanding day, no melatonin.</p>
+      </div>
+    </div>
+    <div class="cta-box" style="margin-top: 32px;">
+      <p>VEDICI is backed by <span class="bold">VITAR</span> &mdash; 35+ years of experience, in-house manufacturing, R&D, and laboratory in the Czech Republic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: WHY SINNERS -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">03</span>
+  <div class="bg-glow" style="background: var(--red); top: 20%; right: 5%;"></div>
+  <div class="content-z">
+    <h3>Why SINNERS</h3>
+    <h2>A perfect audience match.</h2>
+    <div class="match-table">
+      <div class="match-row header">
+        <div class="cell">Parameter</div>
+        <div class="cell">VEDICI targets</div>
+        <div class="cell">SINNERS audience</div>
+      </div>
+      <div class="match-row"><div class="cell bold">Age</div><div class="cell">18&ndash;35</div><div class="cell">18&ndash;35 (core)</div></div>
+      <div class="match-row"><div class="cell bold">Gender</div><div class="cell">Predominantly male</div><div class="cell">92% male</div></div>
+      <div class="match-row"><div class="cell bold">Geography</div><div class="cell">CZ / SK</div><div class="cell">57% CZ, 14% SK</div></div>
+      <div class="match-row"><div class="cell bold">Interest</div><div class="cell">Gaming + cognitive perf.</div><div class="cell">Competitive esports</div></div>
+      <div class="match-row"><div class="cell bold">Brand positioning</div><div class="cell">Premium, adult</div><div class="cell">Adult brand, 80% 18+</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: SINNERS IN NUMBERS -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">04</span>
+  <div class="content-z">
+    <h3>SINNERS Esports</h3>
+    <h2>Numbers that speak for themselves.</h2>
+    <p>4&times; Czech national champion in CS2. Currently #27 in the world, #22 in Europe &mdash; all-time highest ranking. Aiming for Cologne Major 2026.</p>
+    <div class="grid-4" style="margin-top: 40px;">
+      <div class="stat-card"><div class="number">127K+</div><div class="label">Followers</div></div>
+      <div class="stat-card"><div class="number">50M+</div><div class="label">Impressions / year</div></div>
+      <div class="stat-card"><div class="number">5,000+</div><div class="label">Branded posts</div></div>
+      <div class="stat-card"><div class="number">327K</div><div class="label">Peak viewers 2026</div></div>
+    </div>
+    <div class="grid-4" style="margin-top: 16px;">
+      <div class="stat-card"><div class="number">191</div><div class="label">Matches (2025)</div></div>
+      <div class="stat-card"><div class="number">34</div><div class="label">Tournaments</div></div>
+      <div class="stat-card"><div class="number">5K+</div><div class="label">Czech Championship visitors</div></div>
+      <div class="stat-card"><div class="number">40%</div><div class="label">Returning customers (shop)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: STRUCTURE -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">05</span>
+  <div class="content-z">
+    <h3>Partnership Proposal</h3>
+    <h2>10,000 &euro; / year. Pilot + decision.</h2>
+    <p>Quarterly payments with the first quarter as a pilot. At the end of Q1, we evaluate the data and decide on continuation.</p>
+    <div class="timeline">
+      <div class="timeline-item active">
+        <div class="q">Q1</div>
+        <div class="amount">2,500 &euro;</div>
+        <div class="note">April&ndash;June 2026<br><span class="gold" style="font-weight: 600;">PILOT</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="q">Q2</div>
+        <div class="amount">2,500 &euro;</div>
+        <div class="note">July&ndash;September 2026</div>
+      </div>
+      <div class="timeline-item">
+        <div class="q">Q3</div>
+        <div class="amount">2,500 &euro;</div>
+        <div class="note">October&ndash;December 2026</div>
+      </div>
+      <div class="timeline-item">
+        <div class="q">Q4</div>
+        <div class="amount">2,500 &euro;</div>
+        <div class="note">January&ndash;March 2027</div>
+      </div>
+    </div>
+    <p style="margin-top: 24px; font-size: 15px;">+ product supply for the team and bootcamp (outside cash budget)</p>
+    <p style="margin-top: 8px; font-size: 15px; color: var(--gold);">If both sides are satisfied, we are open to gradually increasing the budget.</p>
+  </div>
+</section>
+
+<!-- SLIDE 6: WHAT WE WANT -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">06</span>
+  <div class="content-z">
+    <h3>What we want from SINNERS</h3>
+    <h2>Natural integration, not forced advertising.</h2>
+    <div class="grid-2">
+      <div class="card">
+        <span class="tag tag-gold">Branding</span>
+        <h4>Constant brand visibility</h4>
+        <p style="font-size: 13px; color: var(--white-dim); margin-bottom: 12px;">VEDICI logo permanently present wherever SINNERS communicate.</p>
+        <ul class="list-clean">
+          <li><span class="icon">&#9670;</span> Logo on jersey (secondary position)</li>
+          <li><span class="icon">&#9670;</span> Cover photos &amp; banners on all social channels</li>
+          <li><span class="icon">&#9670;</span> Twitch rotating banner during streams</li>
+          <li><span class="icon">&#9670;</span> VEDICI products visible at bootcamp</li>
+          <li><span class="icon">&#9670;</span> Logo on match graphics and scoreboards</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag tag-gold">Exclusive posts + UGC</span>
+        <h4>6&times; per quarter (2&times; monthly)</h4>
+        <p style="font-size: 13px; color: var(--white-dim); margin-bottom: 12px;">Mix of posts from the SINNERS social media team and authentic UGC from players. Format: post, story, reel. VEDICI can repurpose content on its own channels.</p>
+        <ul class="list-clean">
+          <li><span class="icon">&#9670;</span> Product highlight (ON / CHANGER / OVER)</li>
+          <li><span class="icon">&#9670;</span> Player UGC &mdash; taste test, reactions, &ldquo;what&rsquo;s on my desk&rdquo;</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag tag-gold">Giveaway</span>
+        <h4>1&times; per quarter</h4>
+        <p style="font-size: 13px; color: var(--white-dim); margin-bottom: 12px;">Joint contest for the SINNERS community. Drives followers to VEDICI channels and generates engagement.</p>
+        <ul class="list-clean">
+          <li><span class="icon">&#9670;</span> VEDICI trilogy as a prize</li>
+          <li><span class="icon">&#9670;</span> Condition: follow VEDICI + tag a friend</li>
+          <li><span class="icon" style="color: var(--gold);">?</span> <span style="color: var(--white);">Is it possible to include a signed SINNERS jersey as a prize?</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag tag-gold">Story takeover</span>
+        <h4>1&times; per quarter</h4>
+        <p style="font-size: 13px; color: var(--white-dim); margin-bottom: 12px;">A player &ldquo;takes over&rdquo; SINNERS Stories for a full day, showing their real routine from morning to night.</p>
+        <ul class="list-clean">
+          <li><span class="icon">&#9670;</span> Morning: Game ON before practice</li>
+          <li><span class="icon">&#9670;</span> Day: training, routine, Game CHANGER</li>
+          <li><span class="icon">&#9670;</span> Evening: winding down, Game OVER before bed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: CONTENT IDEAS -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">07</span>
+  <div class="bg-glow" style="background: var(--green); bottom: 10%; left: 5%;"></div>
+  <div class="content-z">
+    <h3>Content Inspiration</h3>
+    <h2>Ideas for exclusive posts and videos.</h2>
+    <p>These formats serve as an idea bank for the 2 monthly posts, story takeovers, and video content. SINNERS choose what fits each month.</p>
+    <div class="grid-3" style="margin-top: 32px;">
+      <div class="format-card">
+        <span class="tag tag-red" style="font-size: 10px;">Video / Reels</span>
+        <h4>Taste test with players</h4>
+        <p>Players try VEDICI lozenges, guess flavors, react. Short, fun, authentic &mdash; not an ad, but content people want to watch.</p>
+      </div>
+      <div class="format-card">
+        <span class="tag tag-green" style="font-size: 10px;">Story series</span>
+        <h4>&ldquo;Daily routine&rdquo; takeover</h4>
+        <p>A player takes over Stories for a full day, showing their life from morning to night. VEDICI products naturally fit into the routine &mdash; ON in the morning, CHANGER midday, OVER at night.</p>
+      </div>
+      <div class="format-card">
+        <span class="tag tag-blue" style="font-size: 10px;">Education</span>
+        <h4>Sinners Wellness</h4>
+        <p>How individual players approach health. Seba doesn&rsquo;t drink coffee and tracks his diet closely, others have different habits &mdash; shows that the VEDICI system covers different needs.</p>
+      </div>
+      <div class="format-card">
+        <span class="tag tag-red" style="font-size: 10px;">Weekly clip</span>
+        <h4>&ldquo;Focus Grind&rdquo;</h4>
+        <p>Weekly short clips of clutch moments from matches. Emphasis on the mental focus required for Tier-1 play. &ldquo;This level of concentration needs a system.&rdquo;</p>
+      </div>
+      <div class="format-card">
+        <span class="tag tag-gold" style="font-size: 10px;">Bootcamp</span>
+        <h4>Behind-the-scenes</h4>
+        <p>VEDICI naturally visible in content from the Prague bootcamp &mdash; on the desk next to the monitor, in the fridge, in training footage. No forced mentions, just visual presence.</p>
+      </div>
+      <div class="format-card">
+        <span class="tag tag-gold" style="font-size: 10px;">Engagement</span>
+        <h4>Giveaway</h4>
+        <p>Signed SINNERS jersey + VEDICI trilogy + meet &amp; greet with a player. A quick way to move SINNERS fans to VEDICI channels. 2&ndash;3&times; per year.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: INFLUENCERS -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">08</span>
+  <div class="bg-glow" style="background: var(--red); bottom: 20%; left: 10%;"></div>
+  <div class="content-z">
+    <h3>SINNERS Influencers</h3>
+    <h2>Reach far beyond the team.</h2>
+    <p>SINNERS have 4 in-house influencers who extend the partnership&rsquo;s reach to additional audiences. Each brings different value.</p>
+    <div class="grid-4" style="margin-top: 32px;">
+      <div class="card">
+        <h4 style="color: var(--gold);">blade</h4>
+        <p style="font-size: 13px; color: var(--white); margin-bottom: 6px;">Roman Piln&yacute;</p>
+        <p style="font-size: 13px;">Ex-pro SINNERS player, now streamer and analyst. Casts team matches. #6 CZ Twitch, ~590 avg viewers.</p>
+      </div>
+      <div class="card" style="border-color: rgba(200,169,96,0.3);">
+        <h4 style="color: var(--gold);">MarweX</h4>
+        <p style="font-size: 13px; color: var(--white); margin-bottom: 6px;">Marek Hub&aacute;ček</p>
+        <p style="font-size: 13px;"><span class="bold">350K Twitch, 463K YouTube, 276M+ views.</span> Largest CZ gaming creator. CS2, GTA, Minecraft. Massive reach.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: var(--gold);">Straty</h4>
+        <p style="font-size: 13px; color: var(--white); margin-bottom: 6px;">Matěj Cihl&aacute;ř</p>
+        <p style="font-size: 13px;">CS2 caster and broadcaster. Commentates SINNERS tournaments. Young talent, reach into tournament viewers.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: var(--gold);">WhiteMish</h4>
+        <p style="font-size: 13px; color: var(--white); margin-bottom: 6px;">M&iacute;ša Vrkoslavov&aacute;</p>
+        <p style="font-size: 13px;">Female streamer, Global Elite CS, FACEIT level 10. 40K+ Twitch. Opens access to the female audience.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="cta-box" style="margin-top: 0;">
+      <p style="font-size: 16px;"><span class="gold" style="font-weight: 700;">Question for SINNERS:</span> What are the options for involving influencers within our budget? We&rsquo;re interested in whether it&rsquo;s feasible to include product placement on streams, taste tests on their channels, or mentions during match commentary &mdash; and what would require separate arrangements.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: SINNERS HUB -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">09</span>
+  <div class="bg-glow" style="background: var(--gold); top: 30%; right: 15%;"></div>
+  <div class="content-z">
+    <h3>SINNERS Hub</h3>
+    <h2>Wellness &amp; Performance <span class="gold">by VEDICI</span></h2>
+    <p>SINNERS are building their own subscription platform &mdash; an esports version of a sports club with training and coaching for fans. VEDICI wants to sponsor the educational module on health and nutrition.</p>
+    <div class="divider"></div>
+    <div class="grid-3" style="margin-top: 24px;">
+      <div class="card">
+        <span class="tag tag-gold">Fan tier</span>
+        <h4>Fan club</h4>
+        <p>50 CZK/month. Watch parties, event attendance, flags, banners &mdash; a fan-governed community.</p>
+      </div>
+      <div class="card" style="border-color: rgba(200,169,96,0.3);">
+        <span class="tag tag-gold">Training tier</span>
+        <h4>Training + coaching</h4>
+        <p>Workshops, CS2 training for various skill groups. <span class="bold">This is where we want the &ldquo;Wellness &amp; Performance by VEDICI&rdquo; module</span> &mdash; nutrition, supplementation, daily routine.</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-gold">Pro pathway</span>
+        <h4>Path to pro scene</h4>
+        <p>Exclusive behind-the-scenes content, improvement tools, opportunity to gain visibility in the scene.</p>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top: 24px;">
+      <div class="card">
+        <h4>What VEDICI brings to the Hub</h4>
+        <ul class="list-clean">
+          <li><span class="icon gold">&#9670;</span>Workshop series: supplementation basics for gamers</li>
+          <li><span class="icon gold">&#9670;</span>Daily routine: nutrition, sleep, Game ON / CHANGER / OVER</li>
+          <li><span class="icon gold">&#9670;</span>Player content: how Seba, SHOCK and others manage health</li>
+          <li><span class="icon gold">&#9670;</span>Branding: &ldquo;brought to you by VEDICI&rdquo; + e-shop links</li>
+        </ul>
+      </div>
+      <div class="cta-box" style="margin-top: 0; align-self: center;">
+        <p style="font-size: 15px;">Hub is in development (~6 months). Intent to be agreed upon at contract signing, execution from <span class="bold">Q2+</span>.<br><br>Direct access to the <span class="gold" style="font-weight: 600;">most engaged core of the community</span> &mdash; people who pay and want to improve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: PILOT KPI -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">10</span>
+  <div class="content-z">
+    <h3>Pilot Quarter (Q1)</h3>
+    <h2>Measure, evaluate, decide.</h2>
+    <div class="grid-2">
+      <div>
+        <h4 style="margin-bottom: 16px; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.7;">Pilot deliverables</h4>
+        <ul class="list-clean">
+          <li><span class="icon">01</span> Logo on jersey</li>
+          <li><span class="icon">02</span> Base branding on social media</li>
+          <li><span class="icon">03</span> 6&times; exclusive post + UGC (2&times; monthly)</li>
+          <li><span class="icon">04</span> Non-exclusive branding on match graphics</li>
+          <li><span class="icon">05</span> 1&times; story takeover</li>
+          <li><span class="icon">06</span> Products at bootcamp</li>
+          <li><span class="icon">07</span> Twitch rotating banner</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-bottom: 16px; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.7;">KPIs</h4>
+        <ul class="list-clean">
+          <li><span class="icon gold">&#9670;</span><span><span class="bold">Impressions</span> &mdash; reach of branded content</span></li>
+          <li><span class="icon gold">&#9670;</span><span><span class="bold">Engagement</span> &mdash; interactions on exclusive posts</span></li>
+          <li><span class="icon gold">&#9670;</span><span><span class="bold">Click-throughs</span> &mdash; clicks to e-shop (UTM)</span></li>
+          <li><span class="icon gold">&#9670;</span><span><span class="bold">Promo code</span> &mdash; SINNERS10 for Trial Trio / trilogy</span></li>
+          <li><span class="icon gold">&#9670;</span><span><span class="bold">Brand sentiment</span> &mdash; community reaction</span></li>
+        </ul>
+        <div class="cta-box" style="margin-top: 24px;">
+          <p style="font-size: 15px;">End of Q1 &rarr; <span class="bold">continue</span>, <span class="bold">adjust</span>, or <span class="bold">end</span>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11: WHAT VEDICI PROVIDES -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">11</span>
+  <div class="bg-glow" style="background: var(--blue); top: 50%; right: 10%;"></div>
+  <div class="content-z">
+    <h3>What VEDICI provides</h3>
+    <h2>Products, assets, budget.</h2>
+    <ul class="list-clean" style="max-width: 600px; margin-top: 24px;">
+      <li><span class="icon gold">&#9670;</span><span><span class="bold">Products for the team</span> &mdash; ongoing bootcamp supply of the full trilogy</span></li>
+      <li><span class="icon gold">&#9670;</span><span><span class="bold">Products for events</span> &mdash; Trial Trio samples for sampling</span></li>
+      <li><span class="icon gold">&#9670;</span><span><span class="bold">Promo code</span> &mdash; exclusive discount for the SINNERS community</span></li>
+      <li><span class="icon gold">&#9670;</span><span><span class="bold">Design assets</span> &mdash; logos, visuals, branding guidelines</span></li>
+      <li><span class="icon gold">&#9670;</span><span><span class="bold">Financial payment</span> &mdash; 2,500 &euro; / quarter</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SLIDE 12: NEXT STEPS -->
+<section class="slide">
+  <span class="vedici-mark">VEDICI</span>
+  <span class="slide-number">12</span>
+  <div class="content-z">
+    <h3>Next Steps</h3>
+    <h2>Let&rsquo;s do this.</h2>
+    <ol class="steps-list">
+      <li>In-person meeting in Prague</li>
+      <li>Agree on scope and terms</li>
+      <li>Jersey logo placement</li>
+      <li>Partnership start &mdash; April 2026</li>
+      <li>Promo code + UTM tracking</li>
+      <li>Monthly reporting from SINNERS</li>
+      <li>Contract signing</li>
+    </ol>
+    <div class="cta-box" style="margin-top: 48px;">
+      <p><span class="gold" style="font-weight: 700;">VEDICI just works. Try it and see.</span></p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
